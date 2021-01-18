@@ -7,11 +7,14 @@ import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
 import { Auth } from "aws-amplify";
 import "./Signup.css";
+import FacebookButton from "../components/FacebookButton"; 
 
 export default function Signup() {
     const [fields, handleFieldChange] = useFormFields({
         email: "",
-        password: "", confirmPassword: "", confirmationCode: "",
+        password: "", 
+        confirmPassword: "", 
+        confirmationCode: "",
     });
     
     const history = useHistory();
@@ -23,6 +26,10 @@ export default function Signup() {
         return (
             fields.email.length > 0 && fields.password.length > 0 && fields.password === fields.confirmPassword
         ); 
+    }
+
+    function handleFbLogin() {
+        userHasAuthenticated(true);
     }
     
     function validateConfirmationForm() {
@@ -89,6 +96,10 @@ export default function Signup() {
         return (
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="email" size="lg">
+                    <FacebookButton
+                        onLogin={handleFbLogin}
+                    />
+                    <hr />
                     <Form.Label>Email</Form.Label> 
                     <Form.Control
                         autoFocus

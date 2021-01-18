@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
+  background-color:#fff;
   font-size: 16px; 
   -moz-osx-font-smoothing: grayscale; 
   -webkit-font-smoothing: antialiased;
@@ -17,7 +18,9 @@ code {
     monospace;
 }
 
-select.form-control, textarea.form-control, input.form-control {
+select.form-control, 
+textarea.form-control, 
+input.form-control {
   font-size: 1rem; 
 }
 input[type=file] { 

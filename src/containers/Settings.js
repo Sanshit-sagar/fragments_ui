@@ -3,6 +3,8 @@ import { API } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import { onError } from "../libs/errorLib";
 import config from "../config";
+import { LinkContainer } from "react-router-bootstrap";
+import LoaderButton from "../components/LoaderButton";
 
 export default function Settings() {
   const history = useHistory();
@@ -16,6 +18,18 @@ export default function Settings() {
 
   return (
     <div className="Settings">
+      <LinkContainer to="/settings/email">
+        <LoaderButton block bsSize="large">
+          Update Email
+        </LoaderButton>
+      </LinkContainer>
+      <LinkContainer to="/settings/password">
+        <LoaderButton block bsSize="large">
+          Update Password
+        </LoaderButton>
+      </LinkContainer>
+      {/* <hr />
+     */}
     </div>
   );
 }

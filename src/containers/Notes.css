@@ -1,4 +1,23 @@
-.Notes from textarea {
-    height: 1000px; 
-    font-size: 1.5rem; 
+.Notes {
+    padding: 60px 0; 
+}
+
+.Notes form textarea {
+    height: 300px; 
+    min-width: 800px; 
+    max-width: 1000px;
+    font-size: 0.8rem; 
+}
+
+.Editor {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; 
+}
+
+.sidePane {
+    display: flex; 
+    flex-direction: column-reverse;
+    align-items: stretch;
+    height: 100%; 
 }
