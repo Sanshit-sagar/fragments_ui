@@ -20,4 +20,5 @@
     flex-direction: column-reverse;
     align-items: stretch;
     height: 100%; 
+    padding-left: 60px;
 }

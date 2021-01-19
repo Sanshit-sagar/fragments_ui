@@ -7,6 +7,7 @@ import LoaderButton from "../components/LoaderButton";
 import config from "../config"; 
 import "./Notes.css"; 
 import { s3Upload } from "../libs/awsLib"; 
+import { Card, Button } from "react-bootstrap"; 
 
 export default function Notes() {
   const file = useRef(null);
@@ -132,8 +133,17 @@ export default function Notes() {
             </Form.Group>
             
             <div className="sidePane"> 
+            <Card>
+              <Card.Header as="h5">Settings</Card.Header>
+              <Card.Body>
+                <Card.Title>Attachments</Card.Title>
+                {/* <Card.Text>
+                  With supporting text below as a natural lead-in to additional content.
+                </Card.Text> */}
+                {/* <Button variant="primary">Save</Button> */}
+              
               <Form.Group controlId="file">
-                <Form.Label>Attachment</Form.Label>
+                {/* <Form.Label>Attachment</Form.Label> */}
                 {note.attachment && (
                   <p>
                     <a
@@ -147,8 +157,18 @@ export default function Notes() {
                 )}
                 <Form.Control onChange={handleFileChange} type="file" />
               </Form.Group>
-
-              <p> OPTIONS </p>
+             
+              <Form.Group controlId="LanguageSelector">
+                <Form.Label>Language</Form.Label>
+                <Form.Control as="select">
+                  <option>Java</option>
+                  <option>C++</option>
+                  <option>JavaScript</option>
+                  <option>Python</option>
+                </Form.Control>
+              </Form.Group> 
+              </Card.Body>
+            </Card>
             </div>
 
           </div>
