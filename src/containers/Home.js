@@ -6,6 +6,7 @@ import { API } from "aws-amplify";
 import "./Home.css";
 import { BsPencilSquare } from "react-icons/bs"; 
 import { LinkContainer } from "react-router-bootstrap"; 
+import { Link } from "react-router-dom"; 
 
 export default function Home() {
   const [notes, setNotes] = useState([]);
@@ -68,6 +69,15 @@ export default function Home() {
       <div className="lander">
         <h1>/ frag / ments / </h1>
         <p className="text-muted">caching your code snippets has never been easier</p>
+      
+        <div className="pt-3"> 
+          <Link to="/login" className="btn btn-light btn-lg mr-3"> 
+            Login 
+          </Link>
+          <Link to="/signup" className="btn btn-dark btn-lg"> 
+            Signup
+          </Link>
+        </div>      
       </div>
     );
   }
