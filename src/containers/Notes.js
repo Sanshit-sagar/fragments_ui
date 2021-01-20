@@ -7,7 +7,7 @@ import LoaderButton from "../components/LoaderButton";
 import config from "../config"; 
 import "./Notes.css"; 
 import { s3Upload } from "../libs/awsLib"; 
-import { Card, Button } from "react-bootstrap"; 
+import { Card, Button, Badge } from "react-bootstrap"; 
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { shadesOfPurple } from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -103,9 +103,9 @@ export default function Notes() {
 
   function Codeblock() {
     return (
-      <SyntaxHighlighter language={programmingLanguage} style={shadesOfPurple}> 
-        { content }
-      </SyntaxHighlighter>
+        <SyntaxHighlighter language={programmingLanguage} style={shadesOfPurple}> 
+          { content }
+        </SyntaxHighlighter>
     );
   }; 
   
@@ -137,15 +137,26 @@ export default function Notes() {
     setOpenEditor(!openEditor); 
   }
 
+  function SnippetHeader() {
+    return (
+      <div className = "snippetHeader"> 
+        <h1>  Snippet Title <Badge variant="secondary"> {programmingLanguage} </Badge> </h1>
+      </div>
+    ); 
+  }
+
+  function handleLanguageChange(event) {
+    setProgrammingLanguage(event.target.value); 
+  }
+
   const LanguageSelector = () => {
     return (
       <Form.Group controlId="LanguageSelector">
         <Form.Label>Language</Form.Label>
-        <Form.Control as="select">
-          <option>Java</option>
-          <option>C++</option>
-          <option>JavaScript</option>
-          <option>Python</option>
+        <Form.Control as="select" onChange={(e) => handleLanguageChange(e)}>
+          <option> javascript </option>
+          <option> html </option>
+          <option> c++ </option>
         </Form.Control>
       </Form.Group> 
     ); 
@@ -158,6 +169,8 @@ export default function Notes() {
 
          <div className="Editor">
            <div className = "editorPane"> 
+            <SnippetHeader /> 
+
             {openEditor && <Form.Group controlId="content">
               <Form.Control
                 as="textarea"
@@ -167,26 +180,16 @@ export default function Notes() {
             </Form.Group> }
             
             {!openEditor && <Codeblock />} 
-            <Button
-              block
-              size="sm"
-              variant="outline-success"
-              isLoading={isLoading}
-              onClick={handleEdit}
-            >
-              {!openEditor && 'Edit'}
-              {openEditor && 'Done'}
-            </Button>
-            </div> 
+          
+          </div> 
 
             <div className="sidePane"> 
               <Card>
                 <Card.Header as="h5">Settings</Card.Header>
                 <Card.Body>
-                  <Card.Title>Attachments</Card.Title>
-              
-                
+                  
                   <Form.Group controlId="file">
+                    <Form.Label> Attachment </Form.Label>
                     {note.attachment && (
                       <p>
                         <a
@@ -203,7 +206,22 @@ export default function Notes() {
                 
                  <LanguageSelector /> 
 
-                  <div className = "submission"> 
+                 </Card.Body>
+              </Card>
+
+              <div className = "submission"> 
+                  <Button
+                    block
+                    size="lg"
+                    variant="outline-success"
+                    isLoading={isLoading}
+                    onClick={handleEdit}
+                    style={{ marginTop: "25px" }}
+                  >
+                    {!openEditor && 'Edit'}
+                    {openEditor && 'Done'}
+                  </Button>
+
                   <LoaderButton
                     block
                     size="lg"
@@ -223,9 +241,6 @@ export default function Notes() {
                       Delete
                   </LoaderButton>
                   </div>
-
-                </Card.Body>
-              </Card>
             </div>
             </div> 
         </Form>
