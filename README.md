@@ -2,8 +2,8 @@
 # fragments-client
 React Application for the / frag / ments / application - a full-stack app to curate your personal code snippet library. 
 
-Source Code for the React Client: https://github.com/Sanshit-sagar/fragments-client
-Source Code for the Server-less infrastructure: https://github.com/Sanshit-sagar/fragments-server 
+- Source Code for the React Client: https://github.com/Sanshit-sagar/fragments-client
+- Source Code for the Server-less infrastructure: https://github.com/Sanshit-sagar/fragments-server 
 
 # Features 
 * Support for Syntax Highlighting for 50+ languages using __Prism__ 
