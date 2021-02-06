@@ -14,6 +14,9 @@ import ResetPassword from "./containers/ResetPassword";
 import ChangePassword from "./containers/ChangePassword"; 
 import ChangeEmail from "./containers/ChangeEmail"; 
 
+import Themes from "./containers/Themes"; 
+import Dashboard from "./containers/Dashboard"; 
+
 export default function Routes() { 
     return (
         <Switch>
@@ -31,6 +34,12 @@ export default function Routes() {
             </UnauthenticatedRoute>
             <AuthenticatedRoute exact path="/settings">
                 <Settings />
+            </AuthenticatedRoute>
+            <AuthenticatedRoute exact path="/themes">
+                <Themes />
+            </AuthenticatedRoute>
+            <AuthenticatedRoute exact path="/dashboard">
+                <Dashboard />
             </AuthenticatedRoute>
             <AuthenticatedRoute exact path="/settings/password">
                <ChangePassword />

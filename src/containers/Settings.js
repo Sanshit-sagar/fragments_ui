@@ -6,6 +6,7 @@ import config from "../config";
 import { LinkContainer } from "react-router-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 
+
 export default function Settings() {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -18,16 +19,16 @@ export default function Settings() {
 
   return (
     <div className="Settings">
-      <LinkContainer to="/settings/email">
-        <LoaderButton block bsSize="large">
-          Update Email
-        </LoaderButton>
-      </LinkContainer>
-      <LinkContainer to="/settings/password">
-        <LoaderButton block bsSize="large">
-          Update Password
-        </LoaderButton>
-      </LinkContainer>
+        <LinkContainer to="/settings/email">
+          <LoaderButton block bsSize="large">
+            <h5> Update Email </h5> 
+          </LoaderButton>
+        </LinkContainer>
+        <LinkContainer to="/settings/password">
+          <LoaderButton block dark bsSize="large">
+            <h5> Update Password </h5> 
+          </LoaderButton>
+        </LinkContainer>
       {/* <hr />
      */}
     </div>

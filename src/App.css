@@ -1,3 +1,18 @@
 .App {
-  
+
+}
+
+.Logo {
+    font-family: 'Zilla Slab Highlight', cursive;
+    font-size: 32px;
+}
+
+.btn-dark {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 16px; 
+}
+
+.btn-light {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 16px; 
 }

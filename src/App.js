@@ -10,46 +10,14 @@ import { LinkContainer } from "react-router-bootstrap";
 import { AppContext } from "./libs/contextLib";
 import { Auth } from "aws-amplify";
 import { onError } from "./libs/errorLib";
+import { Button } from "react-bootstrap"; 
 
 import ErrorBoundary from "./components/ErrorBoundary"; 
+import ScopedCssBaseline from "@material-ui/core/ScopedCssBaseline"; 
 
-function App() { 
+export default function App() { 
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-
-  async function componentDidMount() {
-    this.loadFacebookSDK();
-
-    try {
-      await Auth.currentAuthenticatedUser();
-      this.userHasAuthenticated(true);
-    } catch (e) {
-      if (e !== "not authenticated") {
-        alert(e);
-      }
-    }
-
-    this.setState({ isAuthenticating: false });
-  }
-
-  function loadFacebookSDK() {
-    window.fbAsyncInit = function() {
-      window.FB.init({
-        appId            : config.social.FB,
-        autoLogAppEvents : true,
-        xfbml            : true,
-        version          : 'v9.0'
-      });
-    };
-
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  }
 
   async function handleLogout() {
     await Auth.signOut();
@@ -75,11 +43,14 @@ function App() {
 
   return (
     !isAuthenticating && (
+      <ScopedCssBaseline> 
       <div className="App container py-3">
         <Navbar collapseOnSelect bg="light" variant="light" expand="md" className="mb-3">
-          <LinkContainer to="/">
+          <LinkContainer to="/dashboard">
             <Navbar.Brand>
+              <div className="Logo"> 
               / frag / ments / 
+              </div>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle />
@@ -87,18 +58,61 @@ function App() {
             <Nav activeKey={window.location.pathname}>
               {isAuthenticated ? (
                 <>
-                  <LinkContainer to="/settings">
-                    <Nav.Link>Settings</Nav.Link>
+                  {/* <LinkContainer to="/dashboard">
+                    <Nav.Link>
+                      <Button variant="light"> 
+                        Dashboard
+                      </Button> 
+                    </Nav.Link>
+                  </LinkContainer> */}
+
+                   <LinkContainer to="/">
+                    <Nav.Link>
+                      <Button variant="light"> 
+                        Cache
+                      </Button> 
+                    </Nav.Link>
                   </LinkContainer>
-                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+
+                  {/* <LinkContainer to="/themes">
+                    <Nav.Link>
+                      <Button variant="light"> 
+                        Themes
+                      </Button> 
+                    </Nav.Link>
+                  </LinkContainer> */}
+
+                  <LinkContainer to="/settings">
+                    <Nav.Link> 
+                      <Button variant="light"> 
+                        Profile    
+                      </Button>
+                    </Nav.Link>
+                  </LinkContainer>
+
+                  <div className="Logout"> 
+                    <Nav.Link onClick={handleLogout}>
+                      <Button variant="dark"> 
+                        Logout
+                      </Button> 
+                    </Nav.Link>
+                  </div>
                 </>
               ) : (
                 <>
                   <LinkContainer to="/signup">
-                    <Nav.Link>Signup</Nav.Link>
+                    <Nav.Link>
+                      <Button variant="light"> 
+                        SignUp
+                      </Button> 
+                    </Nav.Link>
                   </LinkContainer>
                   <LinkContainer to="/login">
-                    <Nav.Link>Login</Nav.Link>
+                    <Nav.Link>
+                      <Button variant="light"> 
+                        Login
+                      </Button> 
+                    </Nav.Link>
                   </LinkContainer>
                 </>
               )}
@@ -111,8 +125,7 @@ function App() {
           </AppContext.Provider>
         </ErrorBoundary>
       </div>
+      </ScopedCssBaseline> 
     )
   );
 }
-
-export default App;

@@ -7,6 +7,8 @@ import "./Home.css";
 import { BsPencilSquare } from "react-icons/bs"; 
 import { LinkContainer } from "react-router-bootstrap"; 
 import { Link } from "react-router-dom"; 
+import { Chip } from "@material-ui/core"; 
+
 
 export default function Home() {
   const [notes, setNotes] = useState([]);
@@ -20,8 +22,8 @@ export default function Home() {
       }
   
       try {
-        const notes = await loadNotes();
-        setNotes(notes);
+        const notesLoaded = await loadNotes();
+        setNotes(notesLoaded);
       } catch (e) {
         onError(e);
       }
@@ -36,31 +38,53 @@ export default function Home() {
     return API.get("notes", "/notes");
   }
 
-  function renderNotesList(notes) {
+  function renderNotesList() {
     return (
-      <>
+      <div className="HomePage" style={{ height: "100vh" }}>
+      
       
         <LinkContainer to="/notes/new">
-          <ListGroup.Item action className="py-3 text-nowrap text-truncate">
+          <ListGroup.Item action variant="dark" className="py-3 text-truncate">
             <BsPencilSquare size={17} />
-            <span className="ml-2 font-weight-bold">new</span>
+            <span > New Snippet </span>
           </ListGroup.Item>
         </LinkContainer>
+
+        <br /> 
+
+      
         {notes.map(({ noteId, content, createdAt }) => (
-          <LinkContainer key={noteId} to={`/notes/${noteId}`}>
-            <ListGroup.Item action>
-              <span className="font-weight-bold">
-                {content.trim().split("\n")[0]}
-              </span>
-              <br />
-              <span className="text-muted">
-                timestamp: {new Date(createdAt).toLocaleString()}
-              </span>
+          <LinkContainer key={noteId} to={`/notes/${noteId}`} >
+            
+            <ListGroup.Item action variant="info" horizontal>
+             
+                  
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <span className="font-weight-bold" style = {{ marginRight: "5px" }}>
+                  {content.trim().split("\n")[0].substring(0,21)}
+                </span>
+                {/* <Chip label = "moniker" style = {{ margin: "2px" }} />  */}
+                <br />
+
+              <div className="tagsAndTimestamp" style={{ display: "flex", marginLeft:"auto" }}> 
+               
+                <Chip label = "tag1" style = {{ marginRight: "10px" }} /> 
+                <br />
+                <Chip label = "tag2" style = {{ marginRight: "10px" }} /> 
+                <br />
+                <span className="text-muted">
+                  {new Date(createdAt).toLocaleString()} 
+                </span>
+              </div>
+
+              <br /> 
+            </div> 
+
             </ListGroup.Item>
+            
           </LinkContainer>
         ))}
-    
-      </>
+      </div>
     );
   }
 
@@ -68,7 +92,7 @@ export default function Home() {
     return (
       <div className="lander">
         <h1>/ frag / ments / </h1>
-        <p className="text-muted">caching your code snippets has never been easier</p>
+        <p className="text-muted">Bring Your Code Snippets To Life</p>
       
         <div className="pt-3"> 
           <Link to="/login" className="btn btn-light btn-lg mr-3"> 
@@ -85,8 +109,8 @@ export default function Home() {
   function renderNotes() {
     return (
       <div className="notes">
-        <h2 className="pb-3 mt-4 mb-3 border-bottom">cached snippets</h2>
-        <ListGroup>{!isLoading && renderNotesList(notes)}</ListGroup>
+        {/* <h2 className="pb-3 mt-4 mb-3 border-bottom">Cached Snippets</h2> */}
+        <ListGroup>{!isLoading && renderNotesList()}</ListGroup>
       </div>
     );
   }

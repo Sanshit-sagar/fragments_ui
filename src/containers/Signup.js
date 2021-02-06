@@ -27,10 +27,6 @@ export default function Signup() {
             fields.email.length > 0 && fields.password.length > 0 && fields.password === fields.confirmPassword
         ); 
     }
-
-    function handleFbLogin() {
-        userHasAuthenticated(true);
-    }
     
     function validateConfirmationForm() {
         return fields.confirmationCode.length > 0;
@@ -96,11 +92,11 @@ export default function Signup() {
         return (
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="email" size="lg">
-                    <FacebookButton
-                        onLogin={handleFbLogin}
-                    />
+                  
                     <hr />
-                    <Form.Label>Email</Form.Label> 
+                    <Form.Label>
+                        <h5> Email</h5>
+                    </Form.Label> 
                     <Form.Control
                         autoFocus
                         type="email" 
@@ -109,7 +105,9 @@ export default function Signup() {
                     />
                 </Form.Group>
                 <Form.Group controlId="password" size="lg">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>
+                        <h5> Password </h5>
+                    </Form.Label>
                     <Form.Control
                         type="password"
                         value={fields.password}
@@ -117,7 +115,9 @@ export default function Signup() {
                     />
                 </Form.Group>
                 <Form.Group controlId="confirmPassword" size="lg">
-                <Form.Label>Confirm Password</Form.Label> 
+                <Form.Label>
+                    <h5> Confirm Password </h5>
+                </Form.Label> 
                 <Form.Control
                     type="password"
                     onChange={handleFieldChange}

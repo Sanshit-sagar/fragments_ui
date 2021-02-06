@@ -48,12 +48,11 @@ export default function Login() {
                 <div className="Login">
                     <Form onSubmit={handleSubmit}>
 
-                    <FacebookButton
-                        onLogin={handleFbLogin}
-                    />
                     <hr />
                     <Form.Group size="lg" controlId="email">
-                    <Form.Label>Email</Form.Label> 
+                    <Form.Label>
+                        <h5> Email </h5>
+                    </Form.Label> 
                         <Form.Control
                             autoFocus
                             type="email"
@@ -62,14 +61,17 @@ export default function Login() {
                         />
                     </Form.Group>
                     <Form.Group size="lg" controlId="password">
-                        <Form.Label>Password</Form.Label> 
+                        <Form.Label>
+                            <h5> Password </h5>    
+                        </Form.Label> 
                         <Form.Control
                             type="password"
                             value={fields.password}
                             onChange={handleFieldChange}
                         />
                     </Form.Group> 
-                    <Link to="/login/reset">Forgot password?</Link>
+                    <Link to="/login/reset">
+                        <h5> Forgot password? </h5> </Link>
                     <LoaderButton
                         block
                         size="lg"

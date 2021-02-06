@@ -1,26 +1,10 @@
-.Notes {
+
+
+.Editor {
     display: flex; 
-    display: flex;  
-    justify-content: space-between;
-    border-style: solid; 
-    border-width: 0px; 
-    margin-left: 0px;
-    margin-right: 60px;
-    flex-direction: row; 
-    flex-wrap: wrap;    
-}
-
-.Notes form textarea {
-    min-width: 700px; 
-    max-width: 700px;
-    min-height: 500px; 
-    max-height: 500px; 
-    font-size: 0.8rem; 
-}
-
-editButton {
-    min-width: 700px;
-    max-width: 700px;
+    border: 2px solid black;
+    width: 100%; 
+    height: 70vh;
 }
 
 .Editor {
@@ -29,14 +13,18 @@ editButton {
     align-items: stretch; 
 }
 
-.sidePane {
-    padding-left: 60px;
-    min-width: 410px;
-    max-width: 410px; 
+
+
+.fileAttach1 {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 16px; 
+    width: 50%;
+    height: 70%; 
+    margin-top: 12px;
 }
 
-submission {
-    min-width: 410px; 
-    max-width: 410px; 
+.fileAttach2 {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 16px; 
 }
 
