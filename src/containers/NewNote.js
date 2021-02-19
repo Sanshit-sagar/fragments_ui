@@ -34,8 +34,8 @@ export default function NewNote() {
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [moniker, setMoniker] = useState("@"); 
-    const [tag1, setTag1] = useState("#1234");
-    const [tag2, setTag2] = useState("#");
+    const [primaryTags, setPrimaryTags] = useState("#");
+    const [secondaryTags, setSecondaryTags] = useState("#");
     const classes = useStyles();
     
     function validateForm() { 
@@ -63,7 +63,8 @@ export default function NewNote() {
         try {
             const attachment = file.current ? await s3Upload(file.current) : null;
 
-            await createNote({ content, attachment, moniker, tag1, tag2 });
+            await createNote({ content, moniker, primaryTags, secondaryTags, attachment });
+            
             history.push("/");
         } catch (e) {
             onError(e);
@@ -86,17 +87,17 @@ export default function NewNote() {
         ); 
     }
 
-    function SnippetEditor() {
-        return (
-            <Form.Group controlId="content">
-                <Form.Control
-                    value={content}
-                    as="textarea"
-                    onChange={(e) => setContent(e.target.value)}
-                />
-            </Form.Group>
-        ); 
-    }
+    // function SnippetEditor() {
+    //     return (
+    //         <Form.Group controlId="content">
+    //             <Form.Control
+    //                 value={content}
+    //                 as="textarea"
+    //                 onChange={(e) => setContent(e.target.value)}
+    //             />
+    //         </Form.Group>
+    //     ); 
+    // }
 
     function handleMonikerChange(updatedMoniker) {
         if(updatedMoniker.substring(0,1) != "@") {
@@ -105,25 +106,31 @@ export default function NewNote() {
         setMoniker(updatedMoniker); 
     }
 
-    function handleTag1Update(updatedTag1) {
-            if(updatedTag1.substring(0,1) != "#") {
-                updatedTag1 = "#" + updatedTag1; 
+    function handlePrimaryTagsUpdate(updatedPrimaryTags) {
+            if(updatedPrimaryTags.substring(0,1) != "#") {
+                updatedPrimaryTags = "#" + updatedPrimaryTags; 
             }
-            setTag1(updatedTag1); 
+            setPrimaryTags(updatedPrimaryTags); 
     }
 
-    function handleTag2Update(updatedTag2) {
-            if(updatedTag2.substring(0,1) != "#") {
-                updatedTag2 = "#" + updatedTag2; 
+    function handleSecondaryTagsUpdate(updatedSecondaryTags) {
+            if(updatedSecondaryTags.substring(0,1) != "#") {
+                updatedSecondaryTags = "#" + updatedSecondaryTags; 
             }
-            setTag2(updatedTag2); 
+            setSecondaryTags(updatedSecondaryTags); 
     }
 
 
     return (
         <div className="NewNote">
             <Form onSubmit={handleSubmit}> 
-                <SnippetEditor /> 
+                <Form.Group controlId="content">
+                    <Form.Control
+                        value={content}
+                        as="textarea"
+                        onChange={(e) => setContent(e.target.value)}
+                    />
+                </Form.Group>
                 <AttachmentCard /> 
 
                 <div className={classes.root}>
@@ -155,8 +162,8 @@ export default function NewNote() {
                             <ListItemText primary= {
                                 <TextField id="filled-basic" variant="outlined" 
                                             placeholder="#" size ="medium"
-                                            value={ tag1 } 
-                                            onChange={(e) => handleTag1Update(e.target.value)}
+                                            value={ primaryTags } 
+                                            onChange={(e) => handlePrimaryTagsUpdate(e.target.value)}
                                 /> }
                             />
                         </ListItem>
@@ -169,17 +176,19 @@ export default function NewNote() {
                             <ListItemText secondary= {
                                 <TextField id="filled-basic" variant="outlined" 
                                             placeholder="#" size ="medium"
-                                            value={ tag2 } 
-                                            onChange={(e) => handleTag2Update(e.target.value)}                  
+                                            value={ secondaryTags } 
+                                            onChange={(e) => handleSecondaryTagsUpdate(e.target.value)}                  
                                 /> }
                             />
                         </ListItem>
                     </List>
+
+                    <LoaderButton block type="submit" size="lg" variant="primary" isLoading={isLoading} disabled={!validateForm()}>
+                        <h5> Create </h5> 
+                    </LoaderButton>
                 </div>
                 
-                <LoaderButton block type="submit" size="lg" variant="primary" isLoading={isLoading} disabled={!validateForm()}>
-                    <h5> Create </h5> 
-                </LoaderButton>
+                
             </Form>
         </div>
     );

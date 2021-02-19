@@ -53,24 +53,26 @@ export default function Home() {
         <br /> 
 
       
-        {notes.map(({ noteId, content, createdAt }) => (
+        {notes.map(({ noteId, content, moniker, primaryTags, secondaryTags, createdAt }) => (
           <LinkContainer key={noteId} to={`/notes/${noteId}`} >
             
-            <ListGroup.Item action variant="info" horizontal>
+            <ListGroup.Item action variant="primary" horizontal>
              
                   
               <div style={{ display: "flex", flexDirection: "row" }}>
-                <span className="font-weight-bold" style = {{ marginRight: "5px" }}>
-                  {content.trim().split("\n")[0].substring(0,21)}
+                <span className="font-weight-bold" style = {{ marginRight: "45px" }}>
+                  {moniker.substring(1)} 
                 </span>
+                
+                <a> {content.trim().split("\n")[0].substring(0,21) + "..."} </a>
                 {/* <Chip label = "moniker" style = {{ margin: "2px" }} />  */}
                 <br />
 
               <div className="tagsAndTimestamp" style={{ display: "flex", marginLeft:"auto" }}> 
                
-                <Chip label = "tag1" style = {{ marginRight: "10px" }} /> 
+                <Chip label = {primaryTags} style = {{ marginRight: "10px" }} /> 
                 <br />
-                <Chip label = "tag2" style = {{ marginRight: "10px" }} /> 
+                <Chip label = {secondaryTags} style = {{ marginRight: "10px" }} /> 
                 <br />
                 <span className="text-muted">
                   {new Date(createdAt).toLocaleString()} 

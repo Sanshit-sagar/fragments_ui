@@ -16,7 +16,12 @@ import {
   brownPaper,
   github,
   shadesOfPurple,
-  rainbow } from "react-syntax-highlighter/dist/esm/styles/hljs";
+  rainbow, 
+  googlecode,
+  monoBlue, nightOwl, grayscale,
+  purebasic, monokaiSublime, stackoverflowDark,
+  tomorrowNightBlue, tomorrowNightBright, tomorrowNightEighties,
+  atelierCaveLight, atelierCaveDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 import { Button } from "react-bootstrap"; 
 
@@ -72,13 +77,19 @@ export default function Notes() {
     async function onLoad() {
       try {
         const note = await loadNote();
-        const { content, attachment } = note;
+        const { content, moniker, primaryTags, secondaryTags, attachment } = note;
+
+        console.log(note); 
 
         if (attachment) {
           note.attachmentURL = await Storage.vault.get(attachment);
         }
 
         setContent(content);
+        handleMonikerChange(moniker);
+        handleTag1Update(primaryTags);
+        handleTag2Update(secondaryTags); 
+
         handleContentChange(content);  
         setNote(note);
       } catch (e) {
@@ -125,6 +136,9 @@ export default function Notes() {
       }
       await saveNote({
         content,
+        moniker: moniker,
+        primaryTags: tag1, 
+        secondaryTags: tag2, 
         attachment: attachment || note.attachment
       });
       setIsLoading(false); 
@@ -203,6 +217,18 @@ export default function Notes() {
             <MenuItem value={atomOneLight}> Atom 1 Light </MenuItem>
             <MenuItem value={brownPaper}> Brown Paper </MenuItem>
             <MenuItem value={rainbow}> Rainbow </MenuItem>
+            <MenuItem value={googlecode}> GoogleCode </MenuItem>
+            <MenuItem value={monoBlue}> MonoBlue </MenuItem>
+            <MenuItem value={nightOwl}> NightOwl </MenuItem>
+            <MenuItem value={grayscale}> Grayscale </MenuItem>
+            <MenuItem value={stackoverflowDark}> StackOverflow Dark </MenuItem>
+            <MenuItem value={monokaiSublime}> Monokai Sublime </MenuItem>
+            <MenuItem value={purebasic}> Pure Basic </MenuItem> 
+            <MenuItem value={tomorrowNightBlue}> Tomorrow Night Blue </MenuItem> 
+            <MenuItem value={tomorrowNightBright}> Tomorrow Night Bright </MenuItem> 
+            <MenuItem value={tomorrowNightEighties}> Tomorrow Night Eighties </MenuItem> atelierCaveLight
+            <MenuItem value={atelierCaveLight}> Atelier Cave Light </MenuItem> 
+            <MenuItem value={atelierCaveDark}> Atelier Cave Dark </MenuItem> 
           </Select>
         </FormControl>
       </div> 
@@ -269,24 +295,43 @@ export default function Notes() {
   const classes = useStyles();
   
   function handleMonikerChange(updatedMoniker) {
-      if(updatedMoniker.substring(0,1) != "@") {
-          updatedMoniker = "@" + updatedMoniker; 
+    if(updatedMoniker) {
+      if(updatedMoniker.length == 0) {
+        updatedMoniker = "#"; 
+      } else if(updatedMoniker.substring(0,1) != "@") {
+        updatedMoniker = "#" + updatedMoniker;
       }
-      setMoniker(updatedMoniker); 
+      setMoniker(updatedMoniker);
+    } else {
+      setMoniker("@"); 
+    }
   }
 
   function handleTag1Update(updatedTag1) {
-      if(updatedTag1.substring(0,1) != "#") {
+      if(updatedTag1) {
+        if(updatedTag1.length == 0) {
+          updatedTag1 = "#"; 
+        } else if (updatedTag1.substring(0,1) != "#") {
           updatedTag1 = "#" + updatedTag1; 
+        }
+        setTag1(updatedTag1); 
+      } else {
+        setTag1("#"); 
       }
-      setTag1(updatedTag1); 
+      
   }
 
   function handleTag2Update(updatedTag2) {
-      if(updatedTag2.substring(0,1) != "#") {
+    if(updatedTag2) {
+      if(updatedTag2.length == 0) {
+        updatedTag2 = "#";
+      } else if(updatedTag2.substring(0,1) != "#") {
           updatedTag2 = "#" + updatedTag2; 
       }
       setTag2(updatedTag2); 
+    } else {
+      setTag2("#"); 
+    }
   }
 
   
@@ -358,9 +403,8 @@ export default function Notes() {
 
                     <ListItemText primary={ 
                         <TextField id="filled-basic" variant="filled" 
-                                placeholder="@" size ="medium"
-                                value={ moniker } 
-                                onChange={(e) => handleMonikerChange(e.target.value)}
+                                placeholder="@" size ="large"
+                                value={ moniker } disabled = "true"
                         /> } 
                     />
                 </ListItem>
